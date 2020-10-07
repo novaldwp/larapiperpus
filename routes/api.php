@@ -14,7 +14,12 @@ Route::prefix('v1')->group(function(){
         Route::group(['middleware' => 'cekRole:1'], function() {
             Route::group(['prefix' => 'master'], function() {
                 Route::resource('/author', 'API\v1\Master\AuthorController')
-                    ->except(['show']);
+                    ->except(['show', 'create']);
+                Route::resource('/category', 'API\v1\Master\CategoryController')
+                    ->except(['create', 'show']);
+                Route::resource('/gender', 'API\v1\Master\GenderController')
+                    ->except(['create', 'show']);
+
                 Route::get('/test', function() {
                     return "coba duluu";
                 });
