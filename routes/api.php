@@ -21,6 +21,8 @@ Route::prefix('v1')->group(function(){
                     ->except(['create', 'show']);
                 Route::resource('/publisher', 'API\v1\Master\PublisherController')
                     ->except(['create', 'show']);
+                Route::resource('/bookshelf', 'API\v1\Master\BookshelfController')
+                    ->except(['create', 'show']);
 
                 Route::get('/test', function() {
                     return "coba duluu";
