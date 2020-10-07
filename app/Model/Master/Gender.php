@@ -8,5 +8,4 @@ class Gender extends Model
 {
     protected $table = "tm_gender";
     protected $guarded = [];
-    public $incrementing = false;
 }
