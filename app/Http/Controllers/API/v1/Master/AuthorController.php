@@ -13,21 +13,15 @@ class AuthorController extends Controller
     {
         $author = Author::orderBy('id', 'DESC')->get();
 
-        return response()->json([
-            'status'    => 1,
-            'message'   => 'Data retrieved successfully',
-            'data'      => AuthorResource::collection($author)
-        ], 200);
+        return $this->sendResponse(AuthorResource::collection($author), 'Retrieve author successfully');
     }
 
     public function store(Request $request)
     {
         $this->__validate($request);
 
-        $name   = $request->name;
-
         $author = Author::create([
-            'name' => $name
+            'name' => $request->name
         ]);
 
         return $this->sendResponse(new AuthorResource($author), 'Author inserted successfully');
@@ -35,19 +29,19 @@ class AuthorController extends Controller
 
     public function edit($id)
     {
-        $author = Author::Find($id);
+        $author = $this->findById($id);
 
         if (!$author)
         {
             return $this->sendNoData();
         }
 
-        return $this->sendResponse(new AuthorResource($author), 'Get data successfully');
+        return $this->sendResponse(new AuthorResource($author), 'Get author successfully');
     }
 
     public function update(Request $request, $id)
     {
-        $author = Author::Find($id);
+        $author = $this->findById($id);
 
         if (!$author)
         {
@@ -56,18 +50,16 @@ class AuthorController extends Controller
 
         $this->__validate($request);
 
-        $name = $request->name;
-
         $author->update([
-            'name' => $name
+            'name' => $request->name
         ]);
 
-        return $this->sendSuccess('Data update successfully');
+        return $this->sendSuccess('Author updated successfully');
     }
 
     public function destroy($id)
     {
-        $author = Author::find($id);
+        $author = $this->findById($id);
 
         if (!$author)
         {
@@ -76,7 +68,14 @@ class AuthorController extends Controller
 
         $author->delete();
 
-        return $this->sendSuccess('Data delete successfully');
+        return $this->sendSuccess('Author deleted successfully');
+    }
+
+    public function findById($id)
+    {
+        $author = Author::find($id);
+
+        return $author;
     }
 
     public function __validate($request)
