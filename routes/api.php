@@ -29,7 +29,7 @@ Route::prefix('v1')->group(function(){
                 });
             });
 
-            Route::resource('/book', 'API\v1\Man\BookController')
+            Route::resource('/book', 'API\v1\Main\BookController')
                 ->except(['create', 'show']);
             Route::resource('/member', 'API\v1\Main\MemberController')
                 ->except(['create', 'show']);
