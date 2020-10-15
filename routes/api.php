@@ -12,7 +12,7 @@ Route::prefix('v1')->group(function(){
         Route::get('/logout', 'API\v1\Auth\AuthController@logout')->name('logout');
 
         Route::group(['middleware' => 'cekRole:1'], function() {
-            Route::group(['prefix' => 'master'], function() {
+            Route::group(['prefix' => 'master', 'as' => 'master.'], function() {
                 Route::resource('/author', 'API\v1\Master\AuthorController')
                     ->except(['show', 'create']);
                 Route::resource('/category', 'API\v1\Master\CategoryController')
@@ -23,20 +23,19 @@ Route::prefix('v1')->group(function(){
                     ->except(['create', 'show']);
                 Route::resource('/bookshelf', 'API\v1\Master\BookshelfController')
                     ->except(['create', 'show']);
-
-                Route::get('/test', function() {
-                    return "coba duluu";
-                });
             });
 
             Route::resource('/book', 'API\v1\Main\BookController')
                 ->except(['create', 'show']);
             Route::resource('/member', 'API\v1\Main\MemberController')
                 ->except(['create', 'show']);
+            Route::resource('/user', 'API\v1\Main\UserController')
+                ->except(['create', 'show']);
+
         });
     });
 });
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
