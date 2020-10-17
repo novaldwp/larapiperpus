@@ -32,6 +32,13 @@ Route::prefix('v1')->group(function(){
             Route::resource('/user', 'API\v1\Main\UserController')
                 ->except(['create', 'show']);
 
+            Route::group(['prefix' => 'inventory', 'as' => 'inventory.'], function() {
+                    Route::get('/stock', 'API\v1\Inventory\StockController@index');
+                    Route::get('/stock/{id}', 'API\v1\Inventory\StockController@show');
+                    Route::post('/stock-in', 'API\v1\Inventory\StockController@stockIn');
+                    Route::post('/stock-out', 'API\v1\Inventory\StockController@stockOut');
+            });
+
         });
     });
 });
