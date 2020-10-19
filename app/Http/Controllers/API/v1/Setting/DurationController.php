@@ -53,7 +53,7 @@ class DurationController extends Controller
 
     public function getDuration()
     {
-        $duration = Duration::orderBy('id', 'DESC')->first();
+        $duration = Duration::first();
 
         return $duration;
     }
