@@ -40,8 +40,12 @@ Route::prefix('v1')->group(function(){
             });
 
             Route::group(['prefix' => 'setting', 'as' => 'setting.'], function() {
+                // duration route
                 Route::get('/duration', 'API\v1\Setting\DurationController@index');
                 Route::post('/duration', 'API\v1\Setting\DurationController@store');
+                // charge route
+                Route::get('/charge', 'API\v1\Setting\ChargeController@index');
+                Route::post('/charge', 'API\v1\Setting\ChargeController@store');
             });
         });
     });
