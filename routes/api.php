@@ -33,12 +33,16 @@ Route::prefix('v1')->group(function(){
                 ->except(['create', 'show']);
 
             Route::group(['prefix' => 'inventory', 'as' => 'inventory.'], function() {
-                    Route::get('/stock', 'API\v1\Inventory\StockController@index');
-                    Route::get('/stock/{id}', 'API\v1\Inventory\StockController@show');
-                    Route::post('/stock-in', 'API\v1\Inventory\StockController@stockIn');
-                    Route::post('/stock-out', 'API\v1\Inventory\StockController@stockOut');
+                Route::get('/stock', 'API\v1\Inventory\StockController@index');
+                Route::get('/stock/{id}', 'API\v1\Inventory\StockController@show');
+                Route::post('/stock-in', 'API\v1\Inventory\StockController@stockIn');
+                Route::post('/stock-out', 'API\v1\Inventory\StockController@stockOut');
             });
 
+            Route::group(['prefix' => 'setting', 'as' => 'setting.'], function() {
+                Route::get('/duration', 'API\v1\Setting\DurationController@index');
+                Route::post('/duration', 'API\v1\Setting\DurationController@store');
+            });
         });
     });
 });
