@@ -47,6 +47,10 @@ Route::prefix('v1')->group(function(){
                 Route::get('/charge', 'API\v1\Setting\ChargeController@index');
                 Route::post('/charge', 'API\v1\Setting\ChargeController@store');
             });
+
+            Route::group(['prefix' => 'transaction', 'as' => 'transction'], function() {
+                Route::resource('/loan', 'API\v1\Transaction\LoanController');
+            });
         });
     });
 });
