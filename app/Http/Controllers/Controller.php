@@ -71,4 +71,12 @@ class Controller extends BaseController
             'message' => 'Inputed stock is invalid, please try again'
         ]);
     }
+
+    public function sendAlreadyLoan()
+    {
+        return response()->json([
+            'status' => 0,
+            'message' => 'This member already loan a book, please return first'
+        ]);
+    }
 }
