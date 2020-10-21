@@ -8,6 +8,7 @@ use App\Model\Inventory\Stock;
 use App\Inventory\StockIn;
 use App\Model\Inventory\StockOut;
 use Carbon\Carbon;
+use App\Model\Transaction\Loan;
 
 class Book extends Model
 {
@@ -40,6 +41,11 @@ class Book extends Model
     public function stockout()
     {
         return $this->hasMany(StockOut::class);
+    }
+
+    public function loan()
+    {
+        return $this->hasMany(Loan::class);
     }
 
 }
