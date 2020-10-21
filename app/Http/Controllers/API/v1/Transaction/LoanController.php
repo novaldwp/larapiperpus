@@ -6,21 +6,24 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Model\Transaction\Loan;
 use App\Model\Setting\Duration;
-use App\Http\Resources\Transaction\LoanResource;
+use App\Http\Resources\Transaction\Loan\LoanResource;
+use App\Http\Resources\Transaction\Loan\LoanCollection;
 use Auth;
 
 class LoanController extends Controller
 {
     public function index()
     {
-        $loan = Loan::with(['book', 'member', 'user'])->orderBy('id', 'DESC')->get();
+        $loan = Loan::with(['book', 'member', 'user'])
+            ->orderBy('id', 'DESC')
+            ->get();
 
         if($loan->isEmpty())
         {
             return $this->sendEmpty();
         }
 
-        return $this->sendResponse(LoanResource::collection($loan), 'Retrieve loan successfully');
+        return $this->sendResponse(new LoanCollection($loan), 'Retrieve loan successfully');
     }
 
     public function store(Request $request)
@@ -83,12 +86,14 @@ class LoanController extends Controller
 
     public function getCodeLoan()
     {
-        $year   = date('Y');
+        $year   = date('y');
         $month  = date('m');
         $init   = "TRL";
         $format = $init.$year.$month;
 
-        $loan   = Loan::where('code', 'like', $format.'%')->count();
+        $loan   = Loan::withTrashed()
+            ->where('code', 'like', $format.'%')
+            ->count();
 
         if ($loan != 0)
         {
@@ -113,7 +118,10 @@ class LoanController extends Controller
 
     public function getLoanByMemberId($id)
     {
-        $loan = Loan::where('member_id', $id)->get();
+        $loan = Loan::withTrashed()
+            ->where('member_id', $id)
+            ->where('status', 0)
+            ->get();
 
         return $loan;
     }
