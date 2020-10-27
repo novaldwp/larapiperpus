@@ -9,6 +9,9 @@ use App\Inventory\StockIn;
 use App\Model\Inventory\StockOut;
 use Carbon\Carbon;
 use App\Model\Transaction\Loan;
+use App\Model\Master\Category;
+use App\Model\Master\Publisher;
+use App\Model\Master\Author;
 
 class Book extends Model
 {
@@ -26,6 +29,21 @@ class Book extends Model
     public function getUpdatedAtAttribute($date)
     {
         return date('d-m-Y', strtotime($date));
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function publisher()
+    {
+        return $this->belongsTo(Publisher::class);
+    }
+
+    public function author()
+    {
+        return $this->belongsTo(Author::class);
     }
 
     public function stock()

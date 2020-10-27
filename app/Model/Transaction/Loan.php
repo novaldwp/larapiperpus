@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Model\Main\Book;
 use App\Model\Main\Member;
 use App\User;
+use App\Model\Transaction\TReturn;
 
 class Loan extends Model
 {
@@ -35,5 +36,10 @@ class Loan extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function return()
+    {
+        return $this->hasOne(TReturn::class);
     }
 }
