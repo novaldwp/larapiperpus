@@ -11,7 +11,11 @@ class BookController extends Controller
 {
     public function index()
     {
-        $book = Book::orderBy('id', 'DESC')->get();
+        $book = Book::orderBy('id', 'DESC')
+            ->has('publisher')
+            ->has('author')
+            ->has('category')
+            ->get();
 
         return $this->sendResponse(BookResource::collection($book), 'Retrieve book successfully');
     }
