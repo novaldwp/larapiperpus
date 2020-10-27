@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Model\Transaction\Loan;
+use App\Model\Transaction\TReturn;
 
 class User extends Authenticatable
 {
@@ -42,5 +43,10 @@ class User extends Authenticatable
     public function loan()
     {
         return $this->hasMany(Loan::class);
+    }
+
+    public function return()
+    {
+        return $this->hasMany(TReturn::class);
     }
 }
