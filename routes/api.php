@@ -50,6 +50,8 @@ Route::prefix('v1')->group(function(){
 
             Route::group(['prefix' => 'transaction', 'as' => 'transction'], function() {
                 Route::resource('/loan', 'API\v1\Transaction\LoanController');
+                Route::resource('/return', 'API\v1\Transaction\ReturnController')
+                    ->only(['index', 'store', 'show']);
             });
         });
     });
