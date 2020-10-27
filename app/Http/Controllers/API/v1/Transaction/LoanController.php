@@ -14,7 +14,10 @@ class LoanController extends Controller
 {
     public function index()
     {
-        $loan = Loan::with(['book', 'member', 'user'])
+        $loan = Loan::orderBy('id', 'DESC')
+            ->has('book')
+            ->has('member')
+            ->has('user')
             ->orderBy('id', 'DESC')
             ->get();
 
