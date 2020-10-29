@@ -54,7 +54,7 @@ class AuthorController extends Controller
             'name' => $request->name
         ]);
 
-        return $this->sendSuccess('Author updated successfully');
+        return $this->sendResponse(new AuthorResource($author), 'Update author successfully');
     }
 
     public function destroy($id)
