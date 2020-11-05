@@ -16,7 +16,7 @@ Route::prefix('v1')->group(function(){
                 Route::resource('/author', 'API\v1\Master\AuthorController')
                     ->except(['show', 'create']);
                 Route::resource('/category', 'API\v1\Master\CategoryController')
-                    ->except(['create', 'show']);
+                    ->except(['create']);
                 Route::resource('/gender', 'API\v1\Master\GenderController')
                     ->except(['create', 'show']);
                 Route::resource('/publisher', 'API\v1\Master\PublisherController')

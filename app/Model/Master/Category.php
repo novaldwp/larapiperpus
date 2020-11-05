@@ -5,6 +5,7 @@ namespace App\Model\Master;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Model\Main\Book;
+use App\Model\Master\Bookshelf;
 
 class Category extends Model
 {
@@ -17,5 +18,10 @@ class Category extends Model
     public function book()
     {
         return $this->hasMany(Book::class);
+    }
+
+    public function bookshelf()
+    {
+        return $this->hasMany(Bookshelf::class);
     }
 }

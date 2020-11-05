@@ -4,6 +4,7 @@ namespace App\Model\Master;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Model\Master\Category;
 
 class Bookshelf extends Model
 {
@@ -12,4 +13,9 @@ class Bookshelf extends Model
     protected $table = "tm_bookshelf";
     protected $guarded = [];
     protected $dates = ['deleted_at'];
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }
