@@ -26,7 +26,7 @@ class CategoryController extends Controller
         }
 
         // kalo datanya ada bakal direturn dengan resource collection
-        return $this->sendResponse(new CategoryCollection($category), 'Retrieve category successfully');
+        return $this->sendResponse(new CategoryCollection($category), 1, 'Category');
     }
 
     public function store(Request $request)
@@ -40,7 +40,7 @@ class CategoryController extends Controller
         ]);
 
         // kalo berhasil create bakal munculin pesan dan data yang diinput
-        return $this->sendResponse(new CategoryResource($category), 'Category inserted successfully');
+        return $this->sendResponse(new CategoryResource($category), 2, 'Category');
     }
 
     public function show($id)
@@ -56,7 +56,7 @@ class CategoryController extends Controller
         }
 
         // jika datanya tersedia maka akan direturn dengan json resource
-        return $this->sendResponse(new CategoryResource($category), 'Get category successfully');
+        return $this->sendResponse(new CategoryResource($category), 4, 'Category');
     }
 
     public function edit($id)
@@ -72,7 +72,7 @@ class CategoryController extends Controller
         }
 
         // jika datanya tersedia maka akan direturn dengan json resource
-        return $this->sendResponse(new CategoryResource($category), 'Get category successfully');
+        return $this->sendResponse(new CategoryResource($category), 4, 'Category');
     }
 
     public function update(Request $request, $id)
@@ -96,7 +96,7 @@ class CategoryController extends Controller
         ]);
 
         // jika update berhasil maka akan tampil status message dan data yang di update tadi
-        return $this->sendResponse(new CategoryResource($category), 'Category updated successfully');
+        return $this->sendResponse(new CategoryResource($category), 3, 'Category');
     }
 
     public function destroy($id)
@@ -115,7 +115,7 @@ class CategoryController extends Controller
         $category->delete();
 
         // jika delete berhasil maka akan direturn dengan status dan message
-        return $this->sendSuccess("Category deleted successfully");
+        return $this->sendDeleteSuccess('Category');
     }
 
     public function findCategoryById($id)
