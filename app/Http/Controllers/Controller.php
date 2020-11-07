@@ -21,8 +21,37 @@ class Controller extends BaseController
         return response()->json($response, 200);
     }
 
-    public function sendResponse($result, $message)
+    public function sendDeleteSuccess($name)
     {
+        $message = 'Delete '.$name.' successfully';
+        $response = [
+            'status' => 1,
+            'message' => $message
+        ];
+
+        return response()->json($response, 200);
+    }
+
+    public function sendResponse($result, $type, $name)
+    {
+        switch($type)
+        {
+            case 1 :
+                $operation = 'Retrieve';
+            break;
+            case 2 :
+                $operation = 'Insert';
+            break;
+            case 3 :
+                $operation = 'Update';
+            break;
+            case 0 :
+                $operation = 'Get';
+            break;
+        }
+
+        $message = $operation.' '.$name.' '.'Successfully';
+
         $response = [
             'status' => 1,
             'message' => $message,
