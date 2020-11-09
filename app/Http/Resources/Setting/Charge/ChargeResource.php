@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources\master;
+namespace App\Http\Resources\Setting\Charge;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class BookshelfResource extends JsonResource
+class ChargeResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -14,6 +14,9 @@ class BookshelfResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'cost' => $this->cost
+        ];
     }
 }
