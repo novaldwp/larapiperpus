@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources\Setting;
+namespace App\Http\Resources\Setting\Duration;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
