@@ -108,4 +108,12 @@ class Controller extends BaseController
             'message' => 'This member already loan a book, please return first'
         ]);
     }
+
+    public function sendErrorUpload()
+    {
+        return response()->json([
+            'status' => 0,
+            'message' => 'Error occured when uploading file, please try again'
+        ], 404);
+    }
 }
