@@ -12,6 +12,7 @@ use App\Model\Transaction\Loan;
 use App\Model\Master\Category;
 use App\Model\Master\Publisher;
 use App\Model\Master\Author;
+use App\Model\Master\Bookshelf;
 
 class Book extends Model
 {
@@ -34,6 +35,11 @@ class Book extends Model
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function bookshelf()
+    {
+        return $this->belongsTo(Bookshelf::class);
     }
 
     public function publisher()
