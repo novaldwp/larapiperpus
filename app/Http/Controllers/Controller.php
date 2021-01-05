@@ -109,6 +109,14 @@ class Controller extends BaseController
         ]);
     }
 
+    public function sendAlreadyReturn()
+    {
+        return response()->json([
+            'status' => 0,
+            'message' => 'This member already return a loan, please try again'
+        ]);
+    }
+
     public function sendErrorUpload()
     {
         return response()->json([

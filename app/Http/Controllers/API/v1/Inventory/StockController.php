@@ -8,8 +8,9 @@ use App\Model\Inventory\Stock;
 use App\Model\Inventory\StockIn;
 use App\Model\Inventory\StockOut;
 use App\Model\Main\Book;
+use App\Http\Resources\Inventory\StockCollection;
 use App\Http\Resources\Inventory\StockResource;
-use App\Http\Resources\Main\BookResource;
+use App\Http\Resources\Main\Book\BookResource;
 use Auth;
 
 class StockController extends Controller
@@ -25,7 +26,7 @@ class StockController extends Controller
             return $this->sendEmpty();
         }
 
-        return $this->sendResponse(StockResource::collection($stock), 'Retrieve books stock successfully');
+        return $this->sendResponse(new StockCollection($stock), 1, 'Stock');
     }
 
     public function show($id)
@@ -37,7 +38,7 @@ class StockController extends Controller
             return $this->sendNoData();
         }
 
-        return $this->sendResponse(new BookResource($book), 'Get data book successfully');
+        return $this->sendResponse(new BookResource($book), 0, 'Stock');
     }
 
     public function stockIn(Request $request)
@@ -100,7 +101,7 @@ class StockController extends Controller
             'book_id'   => $request->book_id
         ]);
 
-        return $this->sendResponse(new StockResource($stock), 'Insert stock in successfully');
+        return $this->sendResponse(new StockResource($stock), 2, 'Stock In');
     }
 
     public function storeOut($request)
@@ -111,7 +112,7 @@ class StockController extends Controller
             'amount' => $stock->amount - $request->amount
         ]);
 
-        return $this->sendResponse(new StockResource($stock), 'Insert stock out successfully');
+        return $this->sendResponse(new StockResource($stock), 2, 'Stock Out');
     }
 
     public function updateIn($request)
@@ -124,7 +125,7 @@ class StockController extends Controller
             'amount' => $amount + $request->amount
         ]);
 
-        return $this->sendResponse(new StockResource($stock), 'Update book stock successfully');
+        return $this->sendResponse(new StockResource($stock), 3, 'Stock');
     }
 
     public function __validate($request)

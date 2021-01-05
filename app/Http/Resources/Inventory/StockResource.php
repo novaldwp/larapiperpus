@@ -18,8 +18,7 @@ class StockResource extends JsonResource
             'id'        => $this->id,
             'book_id'   => $this->book_id,
             'title'     => $this->book->title,
-            'amount'    => $this->amount,
-            'borrowed'  => $this->borrowed
+            'amount'    => $this->amount
         ];
     }
 }

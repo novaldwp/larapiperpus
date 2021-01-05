@@ -11,6 +11,7 @@ use App\Model\Transaction\TReturn;
 use App\Http\Resources\Transaction\TReturn\ReturnResource;
 use App\Http\Resources\Transaction\TReturn\ReturnCollection;
 use Auth;
+use Carbon\Carbon;
 
 class ReturnController extends Controller
 {
@@ -25,19 +26,25 @@ class ReturnController extends Controller
             return $this->sendNoData();
         }
 
-        return $this->sendResponse(new ReturnCollection($return), 'Retrieve return successfully');
+        return $this->sendResponse(new ReturnCollection($return), 1, 'Return');
     }
 
     public function store(Request $request)
     {
         $this->__validate($request);
 
-        $loan = new LoanController;
-        $loan = $loan->getLoanById($request->loan_id);
+        $loan   = new LoanController;
+        $loan   = $loan->getLoanById($request->loan_id);
+        $return = TReturn::where('loan_id', $loan->id)->first();
 
         if (!$loan)
         {
             return $this->sendNoData();
+        }
+
+        if ($return)
+        {
+            return $this->sendAlreadyReturn();
         }
 
         $late = $this->getLateReturn($loan->return);
@@ -49,19 +56,22 @@ class ReturnController extends Controller
             'user_id'   => Auth::id()
         ]);
 
-        return $this->sendResponse(new ReturnResource($return), 'Insert return successfully');
+        $loan->status = '0';
+        $loan->save();
+
+        return $this->sendResponse(new ReturnResource($return), 2, 'Return');
     }
 
     public function show($id)
     {
         $return = $this->getReturnById($id);
 
-        if($return->isEmpty())
+        if(empty($return))
         {
             return $this->sendEmpty();
         }
 
-        return $this->sendResponse(new ReturnResource($return), 'Get return successfully');
+        return $this->sendResponse(new ReturnResource($return), 0, 'Return');
     }
 
     public function __validate($request)
@@ -74,27 +84,26 @@ class ReturnController extends Controller
     public function getReturnById($id)
     {
         $return = TReturn::where('id', $id)
-            ->with(['loan'])
-            ->Wherehas('loan', function($q) {
+            ->with(['loan', 'loan.book'])
+            ->whereHas('loan', function($q) {
                 $q->has('book.publisher');
                 $q->has('book.author');
                 $q->has('book.category');
             })
-            ->get();
+            ->first();
 
         return $return;
     }
 
     public function getLateReturn($date)
     {
-        $date1  = new \DateTime(date('Y-m-d'));
-        $date2  = new \DateTime($date);
+        $date1 = Carbon::parse(Carbon::now());
         $diff   = 0;
         $res    = [];
 
-        if ($date1 > $date2)
+        if ($date1 > $date)
         {
-            $diff = $date2->diff($date1)->format("%d");
+            $diff = $date1->diffInDays($date);
         }
 
         $charge = $this->getChargeReturn($diff);
@@ -115,5 +124,4 @@ class ReturnController extends Controller
 
         return $cost;
     }
-
 }

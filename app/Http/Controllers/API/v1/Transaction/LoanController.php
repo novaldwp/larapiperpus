@@ -26,7 +26,7 @@ class LoanController extends Controller
             return $this->sendEmpty();
         }
 
-        return $this->sendResponse(new LoanCollection($loan), 'Retrieve loan successfully');
+        return $this->sendResponse(new LoanCollection($loan), 1, 'Loan');
     }
 
     public function store(Request $request)
@@ -50,7 +50,7 @@ class LoanController extends Controller
             'user_id'   => Auth::id()
         ]);
 
-        return $this->sendResponse(new LoanResource($loan), 'Insert loan successfully');
+        return $this->sendResponse(new LoanResource($loan), 2, 'Loan');
     }
 
     public function show($id)
@@ -62,7 +62,7 @@ class LoanController extends Controller
             return $this->sendNoData();
         }
 
-        return $this->sendResponse(new LoanResource($loan), 'Get loan successfully');
+        return $this->sendResponse(new LoanResource($loan), 0, 'Loan');
     }
 
     public function destroy($id)
@@ -123,7 +123,7 @@ class LoanController extends Controller
     {
         $loan = Loan::withTrashed()
             ->where('member_id', $id)
-            ->where('status', 0)
+            ->where('status', '0')
             ->get();
 
         return $loan;

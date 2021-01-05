@@ -172,7 +172,7 @@ class BookController extends Controller
             ->has('publisher')
             ->has('author')
             ->has('category')
-            ->first();
+            ->get();
 
         return $book;
     }
