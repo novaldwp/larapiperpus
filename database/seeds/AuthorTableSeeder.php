@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Model\Master\Author;
 
 class AuthorTableSeeder extends Seeder
 {
@@ -11,6 +12,16 @@ class AuthorTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        Author::create([
+            'name' => 'J.K Rowling'
+        ]);
+
+        Author::create([
+            'name' => 'Raditya Dika'
+        ]);
+
+        Author::create([
+            'name' => 'Tere Liye'
+        ]);
     }
 }

@@ -14,7 +14,7 @@ class AddFieldEmailToMember extends Migration
     public function up()
     {
         Schema::table('tm_member', function (Blueprint $table) {
-            $table->unique('email')->after('last_name');
+            $table->string('email')->unique()->after('last_name');
         });
     }
 

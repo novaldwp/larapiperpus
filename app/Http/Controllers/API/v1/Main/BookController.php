@@ -72,7 +72,7 @@ class BookController extends Controller
             'image'             => $imageName
         ]);
 
-        // hasilnya akan direturn oleh json resource beserta data yang ditambahkan
+        // // hasilnya akan direturn oleh json resource beserta data yang ditambahkan
         return $this->sendResponse(new BookResource($book), 2, 'Book');
     }
 
@@ -129,7 +129,7 @@ class BookController extends Controller
             File::delete($this->thumbPath.'/'.$book->image);
         }
 
-        // jalankan fungsi update sesuai data yang dicari tadi
+        //jalankan fungsi update sesuai data yang dicari tadi
         $book->update([
             'isbn'              => ($request->isbn != "") ? $request->isbn:"-",
             'title'             => $request->title,
@@ -172,7 +172,7 @@ class BookController extends Controller
             ->has('publisher')
             ->has('author')
             ->has('category')
-            ->get();
+            ->first();
 
         return $book;
     }
