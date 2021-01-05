@@ -25,6 +25,7 @@ API ini dibuat untuk aplikasi perpustakaan minimalis, fitur diantaranya ialah:
 
     - Laravel Framework versi 7.23
     - Laravel Sanctum (sebagai auth)
+    - Json Resource dan Json Collection sebagai Response
     
 ## Instalasi :
 
